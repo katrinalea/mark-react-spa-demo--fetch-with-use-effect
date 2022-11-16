@@ -6,9 +6,13 @@ interface Joke {
   setup: string;
   punchline: string;
 }
+interface Kanye {
+  quote: string;
+}
 
 function App() {
   const [joke, setJoke] = useState<Joke>();
+  const [kanyeQuote, setKanyeQuote] = useState<Kanye>();
 
   useEffect(() => {
     const fetchJoke = async () => {
@@ -18,9 +22,23 @@ function App() {
       const jsonBody: Joke[] = await response.json();
       setJoke(jsonBody[0]);
     };
+    fetchJoke(); 
 
-    fetchJoke();
   }, []);
+
+  useEffect(() => {
+    const fetchKanye = async () => {
+      const kanyeResponse = await fetch(
+        "https://api.kanye.rest/"
+      );
+      const kanyeBody: Kanye[] = await kanyeResponse.json();
+      console.log(kanyeBody)
+      setKanyeQuote(kanyeBody[0]);
+    };
+    fetchKanye();
+    
+    fetchKanye();}, [])
+  
 
   // useEffect(() => {
   //   fetch("https://jokestemp.neillbogie.repl.co/jokes/general/random")
@@ -48,8 +66,18 @@ function App() {
             <i>{joke.punchline}</i>
           </p>
         </>
+        
       )}
+      <>
+      <h1> Kanye Quote</h1>
+      {kanyeQuote && ( 
+        <>
+        <p>{kanyeQuote.quote}</p>
+        </>
+      )} 
+      </>
     </>
+    
   );
 }
 

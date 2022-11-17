@@ -31,9 +31,9 @@ function App() {
       const kanyeResponse = await fetch(
         "https://api.kanye.rest/"
       );
-      const kanyeBody: Kanye[] = await kanyeResponse.json();
+      const kanyeBody: Kanye = await kanyeResponse.json();
       console.log(kanyeBody)
-      setKanyeQuote(kanyeBody[0]);
+      setKanyeQuote(kanyeBody);
     };
     fetchKanye();
     
